@@ -18,13 +18,13 @@ def student_score(score):
 
 class TestEvaluateStudentScore(unittest.TestCase):
     @classmethod
-    def beforeAll(cls):
-        print("Setup for Test Suite 1 - Valid Score Levels")
+    def setUpClass(cls) -> None:
+        cls.testedString = student_score(75)
+        print('Setup ',cls.testedString)
 
     @classmethod
-    def afterAll(cls):
-        # Additional cleanup steps specific to this test suite
-        print("Teardown for Test Suite 1 - Valid Score Levels")
+    def tearDownClass(cls) -> None:
+        print('Tear down ',cls.testedString)
 
     def test_valid_score_failed(self):
         self.assertEqual(student_score(20), "Failed")
@@ -34,13 +34,13 @@ class TestEvaluateStudentScore(unittest.TestCase):
 
 class TestEvaluateStudentScore2(unittest.TestCase):
     @classmethod
-    def beforeAll(cls):
-        print("Setup for Test Suite 2 - Invalid Score Levels")
+    def setUpClass(cls) -> None:
+        cls.testedString = student_score(100)
+        print('Setup ',cls.testedString)
 
     @classmethod
-    def afterAll(cls):
-        # Additional cleanup steps specific to this test suite
-        print("Teardown for Test Suite 2 - Invalid Score Levels")
+    def tearDownClass(cls) -> None:
+        print('Tear down ',cls.testedString)
 
     def test_invalid_score_negative(self):
         self.assertEqual(student_score(-10), "Invalid")
@@ -51,12 +51,12 @@ class TestEvaluateStudentScore2(unittest.TestCase):
 
 if __name__ == '__main__':
     suite1 = unittest.TestLoader().loadTestsFromTestCase(TestEvaluateStudentScore)
-    suite1.beforeAll = TestEvaluateStudentScore.beforeAll
-    suite1.afterAll = TestEvaluateStudentScore.afterAll
+    suite1.beforeAll = TestEvaluateStudentScore.setUpClass
+    suite1.afterAll = TestEvaluateStudentScore.tearDownClass
 
     suite2 = unittest.TestLoader().loadTestsFromTestCase(TestEvaluateStudentScore2)
-    suite2.beforeAll = TestEvaluateStudentScore2.beforeAll
-    suite2.afterAll = TestEvaluateStudentScore2.afterAll
+    suite2.beforeAll = TestEvaluateStudentScore2.setUpClass
+    suite2.afterAll = TestEvaluateStudentScore2.tearDownClass
 
     mySuite = unittest.TestSuite([suite1, suite2])
 
