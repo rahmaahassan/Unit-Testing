@@ -13,6 +13,7 @@ Ex #1 :Test function to evaluate Car speed
 Req # 1 : Input to the function is the car speed and output shall be speed level
 Req# 2 : Function shall calculate output to be :
 		If          Speed < 0    Level shall be Invalid 
+		
 		If     0 <= Speed < 40  Level shall be Low
 		If    40 <= Speed < 120 Level shall be Normal
 		If   120 <= Speed < 200 Level shall be High
