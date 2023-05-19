@@ -1,6 +1,6 @@
 import unittest
 
-def evaluate_car_speed(speed):
+def car_speed(speed):
     if speed < 0:
         return "Invalid"
     elif 0 <= speed < 40:
@@ -16,43 +16,45 @@ def evaluate_car_speed(speed):
 
 class TestEvaluateCarSpeed(unittest.TestCase):
     @classmethod
-    def beforeAll(cls):
-        print("Setup for Test Suite 1 - Valid Speed Levels")
+    def setUpClass(cls) -> None:
+        cls.testedString = car_speed(70)
+        print('Setup ',cls.testedString)
 
     @classmethod
-    def afterAll(cls):
-        print("Teardown for Test Suite 1 - Valid Speed Levels")
+    def tearDownClass(cls) -> None:
+        print('Tear down ',cls.testedString)
 
     def test_valid_speed_low(self):
-        self.assertEqual(evaluate_car_speed(0), "Low")
+        self.assertEqual(car_speed(0), "Low")
 
     def test_valid_speed_normal(self):
-        self.assertEqual(evaluate_car_speed(60), "Normal")
+        self.assertEqual(car_speed(60), "Normal")
 
 class TestEvaluateCarSpeed2(unittest.TestCase):
     @classmethod
-    def beforeAll(cls):
-        print("Setup for Test Suite 2 - Invalid Speed Levels")
+    def setUpClass(cls) -> None:
+        cls.testedString = car_speed(220)
+        print('Setup ',cls.testedString)
 
     @classmethod
-    def afterAll(cls):
-        print("Teardown for Test Suite 2 - Invalid Speed Levels")
+    def tearDownClass(cls) -> None:
+        print('Tear down ',cls.testedString)
 
     def test_invalid_speed_negative(self):
-        self.assertEqual(evaluate_car_speed(-10), "Invalid")
+        self.assertEqual(car_speed(-10), "Invalid")
 
     def test_invalid_speed_high(self):
-        self.assertEqual(evaluate_car_speed(300), "Invalid")
+        self.assertEqual(car_speed(300), "Invalid")
 
 
 if __name__ == '__main__':
     suite1 = unittest.TestLoader().loadTestsFromTestCase(TestEvaluateCarSpeed)
-    suite1.beforeAll = TestEvaluateCarSpeed.beforeAll
-    suite1.afterAll = TestEvaluateCarSpeed.afterAll
+    suite1.beforeAll = TestEvaluateCarSpeed.setUpClass
+    suite1.afterAll = TestEvaluateCarSpeed.tearDownClass
 
     suite2 = unittest.TestLoader().loadTestsFromTestCase(TestEvaluateCarSpeed2)
-    suite2.beforeAll = TestEvaluateCarSpeed2.beforeAll
-    suite2.afterAll = TestEvaluateCarSpeed2.afterAll
+    suite2.beforeAll = TestEvaluateCarSpeed2.setUpClass
+    suite2.afterAll = TestEvaluateCarSpeed2.tearDownClass
 
     mySuite = unittest.TestSuite([suite1, suite2])
 
